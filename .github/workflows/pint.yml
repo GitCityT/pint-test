@@ -1,0 +1,26 @@
+name: pint formatter
+run-name: pint formatter
+
+on:
+  push:
+    branches:
+      - kden-test
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install PHP8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+      - name: Install Composer
+        run: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+      - name: Composer install
+        run: composer install
+      - name: Pint formatter
+        run: composer format
